@@ -10,6 +10,10 @@
 
       {{> loginButtons}}
 
+      <form id="fulltext-search">
+        <input type="text" name="query" placeholder="Search field" />
+      </form>
+
       {{#if currentUser}}
         <form class="new-task">
           <input type="text" name="text" placeholder="Type to add new tasks" />

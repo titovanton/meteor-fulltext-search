@@ -15,16 +15,27 @@ Template.body.onCreated(function bodyOnCreated() {
 Template.body.helpers({
   tasks() {
     const instance = Template.instance();
-    if (instance.state.get('hideCompleted')) {
-      // If hide completed is checked, filter tasks
-      return Tasks.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
+    const hideCompleted = instance.state.get('hideCompleted');
+    const queryText = instance.state.get('queryText');
+    let fields = {};
+    let options = {};
+
+    if (queryText) {
+      const re = new RegExp(queryText);
+      fields.text = re;
     }
-    // Otherwise, return all of the tasks
-    return Tasks.find({}, { sort: { createdAt: -1 } });
+
+    if (hideCompleted) {
+      fields.checked = { $ne: true };
+      options.sort = { createdAt: -1 };
+    }
+
+    return Tasks.find(fields, options);
   },
+
   incompleteCount() {
     return Tasks.find({ checked: { $ne: true } }).count();
-  },
+  }
 });
 
 Template.body.events({
@@ -42,7 +53,17 @@ Template.body.events({
     // Clear form
     target.text.value = '';
   },
+
   'change .hide-completed input'(event, instance) {
     instance.state.set('hideCompleted', event.target.checked);
+  },
+
+  'keyup #fulltext-search input'(event, instance) {
+    const queryText = event.target.value;
+    instance.state.set('queryText', queryText);
+  },
+
+  'submit #fulltext-search'(event) {
+    event.preventDefault();
   },
 });

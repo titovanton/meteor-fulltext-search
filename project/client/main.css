@@ -49,6 +49,7 @@ form {
   position: relative;
 }
 
+#fulltext-search input,
 .new-task input {
   box-sizing: border-box;
   padding: 10px 0;
@@ -59,7 +60,8 @@ form {
   font-size: 1em;
 }
 
-.new-task input:focus{
+#fulltext-search input:focus,
+.new-task input:focus {
   outline: 0;
 }
 

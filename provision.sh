@@ -6,9 +6,9 @@ apt-get install -y htop
 apt-get install -y git
 
 # hostname
-hostname simple-todos
-echo "127.0.0.1 simple-todos" >> /etc/hosts
-echo "simple-todos" > /etc/hostname
+hostname meteor-fulltext
+echo "127.0.0.1 meteor-fulltext" >> /etc/hosts
+echo "meteor-fulltext" > /etc/hostname
 
 # .bashrc
 echo "cd /vagrant/project" >> /home/vagrant/.bashrc
@@ -29,12 +29,12 @@ sudo apt-get update
 sudo apt-get install -y mongodb-enterprise
 
 # Mongo URL
-command="export MONGO_URL='mongodb://localhost:27017/simple-todos'"
+command="export MONGO_URL='mongodb://localhost:27017/meteor-fulltext'"
 echo $command >> /home/vagrant/.bashrc
 
 # project
 cd /vagrant
 # meteor create project
-# git clone https://github.com/titovanton/meteor-simple-todos-tutorial.git project
+# git clone https://github.com/titovanton/meteor-fulltext-search.git project
 cd /vagrant/project
 meteor npm install
