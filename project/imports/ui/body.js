@@ -21,8 +21,12 @@ Template.body.helpers({
     let options = {};
 
     if (queryText) {
-      const re = new RegExp(queryText);
-      fields.text = re;
+      try {
+        const re = new RegExp(queryText);
+        fields.text = re;
+      } catch (error) {
+        ;
+      }
     }
 
     if (hideCompleted) {
@@ -59,8 +63,7 @@ Template.body.events({
   },
 
   'keyup #fulltext-search input'(event, instance) {
-    const queryText = event.target.value;
-    instance.state.set('queryText', queryText);
+    instance.state.set('queryText', event.target.value);
   },
 
   'submit #fulltext-search'(event) {
